@@ -10,14 +10,17 @@ import BaseAppSection from './components/sections/BaseAppSection';
 import LearnSection from './components/sections/LearnSection';
 import TakeControlSection from './components/sections/TakeControlSection';
 import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
 import AccountTypeSelect from './pages/AccountTypeSelect';
 import ForgotPassword from './pages/ForgotPassword';
 import VerifyCode from './pages/VerifyCode';
-import ExplorePage from './pages/ExplorePage';
+import CryptoExplore from './pages/CryptoExplore';
 import MarketStatsPage from './pages/MarketStatsPage';
 import LearnPage from './pages/LearnPage';
 import CryptoBasicsPage from './pages/CryptoBasicsPage';
+import Register from './pages/Register';
+import Profile from './pages/Profile';
+import AddCrypto from './pages/AddCrypto';
+import ProtectedRoute from './components/ProtectedRoute';
 import Loader from './components/ui/Loader';
 
 const Home = () => (
@@ -50,13 +53,23 @@ const App = () => {
       <ProjectNoticeBanner />
       <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/explore" element={<ExplorePage />} />
+      <Route path="/explore" element={<CryptoExplore />} />
       <Route path="/market-stats" element={<MarketStatsPage />} />
       <Route path="/signin" element={<SignIn />} />
       <Route path="/account-type" element={<AccountTypeSelect />} />
-      <Route path="/signup" element={<SignUp />} />
+      <Route path="/signup" element={<Register />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/verify" element={<VerifyCode />} />
+      <Route path="/profile" element={
+        <ProtectedRoute>
+          <Profile />
+        </ProtectedRoute>
+      } />
+      <Route path="/add-crypto" element={
+        <ProtectedRoute>
+          <AddCrypto />
+        </ProtectedRoute>
+      } />
       <Route path="/learn" element={<LearnPage />} />
       <Route path="/learn/crypto-basics" element={<CryptoBasicsPage />} />
     </Routes>

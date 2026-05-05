@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import CryptoTable from '../CryptoTable';
+import CryptoTableBackend from '../CryptoTableBackend';
 
 const ExploreCryptoSection = () => {
 	return (
@@ -33,7 +33,7 @@ const ExploreCryptoSection = () => {
 
 						{/* Right: Crypto table column */}
 						<div className="block w-full min-w-0 md:flex-1">
-							<CryptoTable />
+							<CryptoTableBackend />
 						</div>
 					</div>
 				</div>

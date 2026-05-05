@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { login } from '../api';
 import Logo from '../components/ui/Logo';
 
 /* ── Icons ── */
@@ -57,6 +58,7 @@ const SignIn = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [showPassword, setShowPassword] = useState(false);
+	const [error, setError] = useState('');
 	const navigate = useNavigate();
 
 	const handleEmailContinue = (e) => {
@@ -64,10 +66,21 @@ const SignIn = () => {
 		if (email.trim()) setStep('password');
 	};
 
-	const handlePasswordContinue = (e) => {
+	const handlePasswordContinue = async (e) => {
 		e.preventDefault();
-		// No backend — navigate to verify code page
-		navigate('/verify', { state: { email } });
+		setError('');
+
+		if (!password.trim()) {
+			setError('Please enter your password.');
+			return;
+		}
+
+		try {
+			await login({ email, password });
+			navigate('/profile');
+		} catch (err) {
+			setError(err.message || 'Unable to sign in.');
+		}
 	};
 
 	return (
@@ -189,15 +202,17 @@ const SignIn = () => {
 								</Link>
 							</div>
 
-							{/* Continue button */}
-							<button
-								type="submit"
-								className="w-full h-14 rounded-full bg-[#3B4DE0] hover:bg-[#2F3FC0] active:bg-[#2535A0] text-white font-semibold text-[0.9375rem] transition-colors"
-							>
-								Continue
-							</button>
-						</form>
-					)}
+						{error && <p className="text-sm text-[#FF7A7A] mb-4">{error}</p>}
+
+						{/* Continue button */}
+						<button
+							type="submit"
+							className="w-full h-14 rounded-full bg-[#3B4DE0] hover:bg-[#2F3FC0] active:bg-[#2535A0] text-white font-semibold text-[0.9375rem] transition-colors"
+						>
+							Continue
+						</button>
+					</form>
+				)}
 
 				</div>
 			</div>

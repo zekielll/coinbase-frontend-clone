@@ -84,8 +84,10 @@ const AnimatedPrice = ({ value, dir }) => {
 
 	const chars = value.split('');
 	// Right-align: pad the shorter string on the left so digit positions line up
+	// eslint-disable-next-line react-hooks/refs
 	const maxLen = Math.max(chars.length, prevValue.length);
 	const paddedNew  = value.padStart(maxLen, ' ').split('');
+	// eslint-disable-next-line react-hooks/refs
 	const paddedPrev = prevValue.padStart(maxLen, ' ').split('');
 
 	return (

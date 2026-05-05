@@ -10,13 +10,12 @@ const VerifyCode = () => {
 
 	const [code, setCode] = useState(['', '', '', '', '', '']);
 	const [timer, setTimer] = useState(RESEND_SECONDS);
-	const [canResend, setCanResend] = useState(false);
+	const canResend = timer <= 0;
 	const inputRefs = useRef([]);
 
 	// Countdown timer
 	useEffect(() => {
 		if (timer <= 0) {
-			setCanResend(true);
 			return;
 		}
 		const id = setInterval(() => setTimer((t) => t - 1), 1000);
@@ -25,7 +24,6 @@ const VerifyCode = () => {
 
 	const handleResend = () => {
 		setTimer(RESEND_SECONDS);
-		setCanResend(false);
 	};
 
 	const focusInput = useCallback((index) => {
